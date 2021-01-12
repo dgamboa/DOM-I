@@ -127,18 +127,50 @@ const beforeLink = document.createElement("a"),
       afterLink = document.createElement("a");
 
 beforeLink.textContent = "Before";
+beforeLink.href = "#";
 afterLink.textContent = "After";
+afterLink.href = "#";
 
 nav.prepend(beforeLink);
 nav.appendChild(afterLink);
 
 // Stretch:
 // ** Update some styles **
-const paragraphs = Array.from(document.querySelectorAll('p'));
-paragraphs.map(p => {
-  p.style.fontSize = "0.9rem";
-  p.style.color = "#888"
-});
+// const paragraphs = Array.from(document.querySelectorAll('p'));
+// paragraphs.map(p => {
+//   p.style.fontSize = "0.9rem";
+//   p.style.color = "#888"
+// });
 
 footer.style.paddingBottom = "50px";
 
+// Dark Mode:
+const darkSwitch = document.querySelector('.switch input');
+const allParagraphs = [...document.querySelectorAll('p')];
+const allLinks = [...document.querySelectorAll('a')];
+const darkLabel = document.querySelector('.dark-label');
+const fourHeadings = [...document.querySelectorAll('h4')];
+
+darkSwitch.addEventListener('click', event => {
+  document.body.classList.toggle('dark-mode');
+  if (event.target.checked) {
+    navLinks.map(link => link.style.color = "white");
+    darkLabel.style.color = "white";
+    logo.style.backgroundColor = "white";
+    ctaHeading.style.color = "white";
+    fourHeadings.map(h4 => h4.style.color = "white");
+    footer.style.color = "white";
+    mainContent.style.borderTop = "2px solid white";
+    mainContent.style.borderBottom = "2px solid white";
+  } else {
+    navLinks.map(link => link.style.color = "green");
+    darkLabel.style.color = null;
+    logo.style.backgroundColor = null;
+    ctaHeading.style.color = null;
+    fourHeadings.map(h4 => h4.style.color = null);
+    footer.style.color = null;
+    mainContent.style.borderTop = null;
+    mainContent.style.borderBottom = null;
+  }
+  allParagraphs.map(p => p.classList.toggle('dark-mode-text'));
+})
